@@ -1,0 +1,25 @@
+
+.btn{
+    margin: 10px;
+}
+body{
+    background-image: url('https://ce0ijuan.cloudimg.io/crop/1600x700/q80/https://cdn.intellinet.com/intellinetcom_226867182.jpg');
+    /* background-image: url(); */
+}
+.row-fluid{
+    opacity: 0.7;
+    text-align: center;
+    font-size: 100px;
+    color: white;
+} 
+
+.container{
+    background: rgb(173, 173, 185);
+    overflow: auto;
+}
+
+nav{
+    /* background-image:url(https://g1.nyt.com/assets/homepage/20180614-182902/images/foundation/logos/nyt-logo-379x64.png);
+    background-repeat: no-repeat;
+    align-content: center; */
+}
