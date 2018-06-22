@@ -1,6 +1,5 @@
-$(function () {
 
-    $('#scrapeButton').on('click', function (event) {
+    $(document).on('click','#scrapeButton', function (event) {
         $.ajax({
             method: "GET",
             url: "/scrape"
@@ -16,18 +15,19 @@ $(function () {
                                                     <div class="card-body">
                                                     <h5 id='article-title' class="card-title">${data[i].title}</h5>
                                                     <p id='article-text' class="card-text">${data[i].link}</p></div>
-                                                    </div>`);
+                                                    </div>
+                                                    <button type='button' class='btn btn-secondary save-article' id='save-article${i}'>Save Article
+                                                    </button>`);
                 }
             });
 
         });
     });
 
-
     // Whenever someone clicks a p tag
-    $('p').on("click", function () {
+    $(document).on("click",'.save-article', function () {
         // Empty the notes from the note section
-        $("#notes").empty();
+        $("#note-display").empty();
         // Save the id from the p tag
         var thisId = $(this).attr("data-id");
 
@@ -40,26 +40,31 @@ $(function () {
             .then(function (data) {
                 console.log(data);
                 // The title of the article
-                $("#notes").append("<h2>" + data.title + "</h2>");
-                // An input to enter a new title
-                $("#notes").append("<input id='titleinput' name='title' >");
-                // A textarea to add a new note body
-                $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
-                // A button to submit a new note, with the id of the article saved to it
-                $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
-
+                $("#note-display").modal('toggle');
+                $("#note-display").append(` <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header"></div>
+                                            <div class="modal-body"></div>
+                                            <div class="modal-footer">
+                                            <button type="button" id='delete-note' class="btn btn-secondary">Delete</button>
+                                            <button type="button" id='save-note' class="btn btn-primary">Save</button>
+                                            </div></div></div>`);
                 // If there's a note in the article
                 if (data.note) {
                     // Place the title of the note in the title input
-                    $("#titleinput").val(data.note.title);
+                    $(".modal-header").val(data.note.title);
                     // Place the body of the note in the body textarea
-                    $("#bodyinput").val(data.note.body);
+                    $(".modal-body").val(data.note.body);
                 }
             });
     });
 
+    $(document).on('click','#saved-articles', function () {
+      
+    });
+
     // When you click the savenote button
-    $("#savenote").on("click", function () {
+    $("#save-note").on("click", function () {
         // Grab the id associated with the article from the submit button
         var thisId = $(this).attr("data-id");
 
@@ -69,9 +74,9 @@ $(function () {
             url: "/articles/" + thisId,
             data: {
                 // Value taken from title input
-                title: $("#titleinput").val(),
+                title: $(".modal-header").val(),
                 // Value taken from note textarea
-                body: $("#bodyinput").val()
+                body: $(".modal-body").val()
             }
         })
             // With that done
@@ -83,17 +88,6 @@ $(function () {
             });
 
         // Also, remove the values entered in the input and textarea for note entry
-        $("#titleinput").val("");
-        $("#bodyinput").val("");
+        $(".modal-header").val("");
+        $(".modal-body").val("");
     });
-    // })
-    $("#scrapeButton").on("click", function (event) {
-        event.preventDefault();
-
-        $.ajax("/scrape", {
-            type: 'GET',
-        }).then(function (data) {
-            console.log('data received', data);
-        });
-    });
-});
