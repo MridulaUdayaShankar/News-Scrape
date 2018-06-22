@@ -1,18 +1,25 @@
 $(function () {
-    $('.card-body').hide();
+
     $('#scrapeButton').on('click', function (event) {
-        app.get("/scrape", function () {
-            // Grab the articles as a json
+        $.ajax({
+            method: "GET",
+            url: "/scrape"
+        }).then(function (data) {
+            console.log("Scrapped!!!!!!!!!!!!!!!!!!");
             $.getJSON("/articles", function (data) {
                 // For each one
-                $('.card-body').show();
+                console.log("Articles found!!!!!!!!!!!!!!!!!!");
                 for (var i = 0; i < data.length; i++) {
-                    // Display the information on the page
-                    $("#article-title").append(data[i].title);
-                    $("#article-text").append(data[i].link);
-                    
+                    // Display the information on the page using bootstrap cards 
+                    //and create a save article button for each card
+                    $("#article-display").append(`<div class="card text-center">
+                                                    <div class="card-body">
+                                                    <h5 id='article-title' class="card-title">${data[i].title}</h5>
+                                                    <p id='article-text' class="card-text">${data[i].link}</p></div>
+                                                    </div>`);
                 }
             });
+
         });
     });
 

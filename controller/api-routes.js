@@ -1,15 +1,16 @@
-var db = require('../models');
+var express = require("express");
+var db = require("../models/");
+var router = express.Router();
+var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
 // Routes
-module.exports = function (app) {
-
-    app.get("/", function (req, res) {
+    router.get("/", function (req, res) {
         res.render('index');
     });
 
     // A GET route for scraping the echoJS website
-    app.get("/scrape", function (req, res) {
+    router.get("/scrape", function (req, res) {
         // First, we grab the body of the html with request
         axios.get("http://www.nytimes.com").then(function (response) {
             // Then, we load that into cheerio and save it to $ for a shorthand selector
@@ -46,7 +47,7 @@ module.exports = function (app) {
     });
 
     // Route for getting all Articles from the db
-    app.get("/articles", function (req, res) {
+    router.get("/articles", function (req, res) {
         // Grab every document in the Articles collection
         db.Article.find({})
             .then(function (dbArticle) {
@@ -57,10 +58,11 @@ module.exports = function (app) {
                 // If an error occurred, send it to the client
                 res.json(err);
             });
+        
     });
 
     // Route for grabbing a specific Article by id, populate it with it's note
-    app.get("/articles/:id", function (req, res) {
+    router.get("/articles/:id", function (req, res) {
         // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
         db.Article.findOne({ _id: req.params.id })
             // ..and populate all of the notes associated with it
@@ -76,7 +78,7 @@ module.exports = function (app) {
     });
 
     // Route for saving/updating an Article's associated Note
-    app.post("/articles/:id", function (req, res) {
+    router.post("/articles/:id", function (req, res) {
         // Create a new note and pass the req.body to the entry
         db.Note.create(req.body)
             .then(function (dbNote) {
@@ -94,4 +96,4 @@ module.exports = function (app) {
                 res.json(err);
             });
     });
-}
+    module.exports = router;

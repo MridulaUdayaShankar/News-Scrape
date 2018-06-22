@@ -9,7 +9,8 @@ var axios = require("axios");
 var cheerio = require("cheerio");
 var PORT = 3000;
 
-require('./controller/api-routes')(app);
+var routes = require("./controller/api-routes");
+app.use(routes);
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 // Use body-parser for handling form submissions
@@ -20,6 +21,7 @@ var exphbs = require("express-handlebars");
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+
 
 
 // Connect to the Mongo DB
