@@ -8,10 +8,10 @@ var app = express();
 var axios = require("axios");
 var cheerio = require("cheerio");
 
-var PORT = 3000;
+var PORT = 8080;
 
 //require Routes
-var routes = require("./controller/api-routes");
+var routes = require("./controller/api-routes");   
 app.use(routes);
 
 //require connection to database
