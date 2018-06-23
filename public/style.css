@@ -1,8 +1,10 @@
 #header{
-    margin-left: 450px;
+    margin: 0 auto;
+    text-align: center;
 }
-#navbarNav{
-    margin-left: 400px;
+.navbar{
+    text-align: center;
+    margin: 0 auto;
 }
 .btn{
     margin: 10px;
@@ -10,6 +12,7 @@
 body{
     background-image: url(https://previews.123rf.com/images/yupiramos/yupiramos1311/yupiramos131100637/23761922-new-york-design-over-white-background-vector-illustration.jpg);
     background-repeat: inherit;
+    background-position-x: center;
     
 }
 #article-title{
@@ -22,7 +25,9 @@ body{
     overflow: auto;
     min-height: 600px;
 }
-
+.navbar-nav{
+    margin: 0 auto;
+}
     /* background-image:url(https://g1.nyt.com/assets/homepage/20180614-182902/images/foundation/logos/nyt-logo-379x64.png);
     background-repeat: no-repeat;
     align-content: center; */
