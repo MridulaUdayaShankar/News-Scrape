@@ -7,10 +7,14 @@ var app = express();
 
 var axios = require("axios");
 var cheerio = require("cheerio");
+
 var PORT = 3000;
 
+//require Routes
 var routes = require("./controller/api-routes");
 app.use(routes);
+
+//require connection to database
 require('./config/connection');
 
 // Use morgan logger for logging requests
