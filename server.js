@@ -8,7 +8,7 @@ var app = express();
 var axios = require("axios");
 var cheerio = require("cheerio");
 
-var PORT = 8080;
+var PORT = 3000;
 
 //require Routes
 var routes = require("./controller/api-routes");   
