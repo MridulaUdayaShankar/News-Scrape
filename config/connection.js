@@ -1,6 +1,6 @@
 
 var mongoose = require("mongoose");
-var databaseUri = 'mongodb://heroku_f9k673n3:odppl2jrg0k3iaaf0ukg6r5fnh@ds115971.mlab.com:15971/heroku_f9k673n3' //"mongodb://localhost/newsscraper";
+var databaseUri ="mongodb://localhost/newsscraper";
 // If deployed, use the deployed database. Otherwise use the local database
 
 if (process.env.MONGODB_URI) {
